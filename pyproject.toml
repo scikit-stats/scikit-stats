@@ -1,0 +1,94 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "scikit-statistics"
+version = "1.0.0"
+description = "Community driven collection of statistical distributions for SciPy"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "BSD-3-Clause"
+authors = [
+    { name = "Pamphile Roy" },
+    { name = "Matt Haberland" },
+]
+maintainers = [
+    { name = "Scikit-Stats maintainers" },
+]
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+keywords = [
+    "scipy",
+    "statistics",
+    "distributions",
+    "random numbers",
+    "QMC",
+]
+
+dependencies = [
+    "scipy",
+    "numpy",
+]
+
+[project.optional-dependencies]
+doc = [
+    "sphinx",
+    "pydata-sphinx-theme",
+    "accessible-pygments",
+    "numpydoc",
+    "myst-nb",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest",
+    "pytest-cov",
+    "hypothesis",
+    "mpmath",
+
+    "sphinx",
+    "pydata-sphinx-theme",
+    "accessible-pygments",
+    "numpydoc",
+    "myst-nb",
+
+    "pre-commit",
+    "ruff",
+]
+
+[project.urls]
+homepage = "https://github.com/scikit-stats/scikit-stats"
+documentation = "https://github.com/scikit-stats/scikit-stats"
+source = "https://github.com/scikit-stats/scikit-stats"
+
+[tool.hatch]
+build.targets.wheel.packages = ["src/skstats"]
+build.targets.sdist.exclude = [
+  ".github",
+  "docs",
+  "tests",
+  "*.rst",
+  "*.yml",
+  ".*",
+]
+
+[tool.pytest.ini_options]
+addopts = "--durations 10"
+testpaths = [
+    "tests",
+]
+
+[tool.ruff.per-file-ignores]
+"**/__init__.py" = ["F403", "F405"]

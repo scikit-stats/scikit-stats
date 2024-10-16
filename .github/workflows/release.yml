@@ -1,0 +1,61 @@
+name: Publish Tansu Python
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish Python distribution to PyPI
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      attestations: write
+    environment:
+      name: publish-python
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install the project
+        run: uv sync --all-extras --dev
+
+      - name: Build
+        run: uv build
+
+      - name: Test import
+        run: uv run --with scikit-statistics --no-project -- python -c "import skstats"
+
+      - name: Generate artifact attestation for sdist and wheels
+        uses: actions/attest-build-provenance@1c608d11d69870c2092266b3f9a6f3abbf17002c
+        with:
+          subject-path: "dist/scikit*"
+
+      - name: Verify artifact attestation
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          for artifact in dist/*; do
+              echo "# ${artifact}"
+              gh attestation verify "${artifact}" --repo ${{ github.repository }}
+          done
+
+      - name: Publish distribution to PyPI
+        uses: pypa/gh-action-pypi-publish@f7600683efdcb7656dec5b29656edb7bc586e597
+        with:
+          print-hash: true
