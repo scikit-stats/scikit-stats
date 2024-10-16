@@ -18,7 +18,7 @@ jobs:
       id-token: write
       attestations: write
     environment:
-      name: publish-python
+      name: release
 
     steps:
       - uses: actions/checkout@v4
