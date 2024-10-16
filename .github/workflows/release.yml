@@ -1,4 +1,4 @@
-name: Publish Tansu Python
+name: Publish Scikit-Stats
 
 on:
   workflow_dispatch:
