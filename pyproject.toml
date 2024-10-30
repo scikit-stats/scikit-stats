@@ -68,6 +68,13 @@ dev-dependencies = [
     "ruff",
 ]
 
+[tool.uv.sources]
+scipy = { index = "scientific_python_nightly_wheels" }
+
+[[tool.uv.index]]
+name = "scientific_python_nightly_wheels"
+url = "https://pypi.anaconda.org/scientific-python-nightly-wheels/simple"
+
 [project.urls]
 homepage = "https://github.com/scikit-stats/scikit-stats"
 documentation = "https://github.com/scikit-stats/scikit-stats"
@@ -90,5 +97,5 @@ testpaths = [
     "tests",
 ]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "**/__init__.py" = ["F403", "F405"]
