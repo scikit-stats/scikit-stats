@@ -99,3 +99,4 @@ testpaths = [
 
 [tool.ruff.lint.per-file-ignores]
 "**/__init__.py" = ["F403", "F405"]
+"**/normal.py" = ["F821"]
