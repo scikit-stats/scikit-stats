@@ -10,11 +10,14 @@ from scipy.stats._distribution_infrastructure import (
 )
 
 
+__all__ = ["LogUniform"]
+
+
 def _log_diff(log_p, log_q):
     return special.logsumexp([log_p, log_q + np.pi * 1j], axis=0)
 
 
-class _LogUniform(ContinuousDistribution):
+class LogUniform(ContinuousDistribution):
     r"""Log-uniform distribution.
 
     The probability density function of the log-uniform distribution is:

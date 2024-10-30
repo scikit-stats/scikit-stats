@@ -9,6 +9,9 @@ from scipy.stats._distribution_infrastructure import (
 )
 
 
+__all__ = ["Uniform"]
+
+
 class Uniform(ContinuousDistribution):
     r"""Uniform distribution.
 
